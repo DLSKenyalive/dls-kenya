@@ -1,101 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>LIVE KENYA DLS - V6.0</title>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LIVE KENYA DLS - Aviator Main Boost + DLS Partners 12%</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#0f0a1f;color:#fff;font-family:Arial,sans-serif}
-.header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#1a1233;position:sticky;top:0;z-index:10}
-.logo-wrap{display:flex;align-items:center;gap:10px}
-.logo-img{width:46px;height:46px;border-radius:50%;border:2px solid #ffeb3b;object-fit:cover;background:#2a2250}
-.brand{font-weight:900;font-size:17px;line-height:1}
-.brand span{color:#ffeb3b}
-.sub{font-size:11px;opacity:.7}
-.wallet{background:#2a2250;padding:9px 16px;border-radius:22px;font-weight:800;font-size:14px;border:1px solid #3a2e6b}
-.tabs{display:flex;gap:8px;padding:12px;overflow-x:auto}
-.tab{background:#2a2250;border:none;color:#fff;padding:10px 18px;border-radius:22px;font-weight:700;white-space:nowrap}
-.tab.active{background:#ffeb3b;color:#000}
-.card{background:#1e1239;margin:10px 12px;padding:16px;border-radius:18px;border:1px solid #2a2250}
-.card h3{margin-bottom:8px}
-.btn-yellow{background:#ffeb3b;color:#000;border:none;width:100%;padding:14px;border-radius:12px;font-weight:900;font-size:15px;margin-top:12px}
-.btn-dark{background:#2a2250;color:#fff;border:1px solid #3a2e6b;width:48%;padding:12px;border-radius:12px;font-weight:700}
-.row{display:flex;justify-content:space-between;gap:8px;margin-top:12px}
-.small{font-size:12px;opacity:.7;margin-top:6px}
-.badge{background:#ff3b6b;color:#fff;padding:3px 8px;border-radius:10px;font-size:10px;margin-left:6px}
-</style>
-</head>
-<body>
-
+*{margin:0;padding:0;box-sizing:border-box}body{background:#0f0a1f;color:#fff;font-family:Arial}
+.header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#1a1233;position:sticky;top:0;z-index:20}
+.logo{font-weight:900;font-size:18px}.logo span{color:#ffeb3b}
+.wallet{background:linear-gradient(90deg,#ffeb3b,#ff9800);color:#000;padding:8px 14px;border-radius:20px;font-weight:900}
+.card{background:#1e1239;margin:12px;padding:16px;border-radius:16px;border:1px solid #2a2250}
+.btn-y{background:#ffeb3b;color:#000;border:none;width:100%;padding:14px;border-radius:12px;font-weight:900;margin-top:10px;font-size:16px}
+.btn-d{background:#2a2250;color:#fff;border:1px solid #3a2e6b;padding:12px;border-radius:10px;flex:1;font-weight:700}
+.row{display:flex;gap:6px}
+input{width:100%;padding:12px;border-radius:10px;border:1px solid #3a2e6b;background:#0f0a1f;color:#fff;margin:6px 0}
+.hidden{display:none}
+.tab{background:#2a2250;color:#fff;border:none;padding:10px 14px;border-radius:20px;margin:2px;font-weight:700}
+.tab.active{background:#ffeb3b;color:#000;transform:scale(1.1)}
+#planeBox{height:180px;background:radial-gradient(circle at center,#1a1233,#0a0520);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:44px;font-weight:900;margin:10px 0;border:2px solid #ff3b6b;position:relative;overflow:hidden}
+#planeBox small{font-size:12px;opacity:.7;margin-top:8px}
+.small{font-size:11px;opacity:.7;margin-top:6px}
+.admin{background:#1a2a0a;border:1px solid #4caf50}
+.boost-badge{background:#ff3b6b;color:#fff;padding:3px 8px;border-radius:10px;font-size:10px;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.matchBox{background:#0f0a1f;padding:10px;border-radius:10px;margin:8px 0;border:1px solid #3a2e6b}
+</style></head><body>
 <div class="header">
-  <div class="logo-wrap">
-    <img src="https://via.placeholder.com/46x46/2a2250/ffeb3b?text=DLS" class="logo-img" alt="DLS Logo">
-    <div>
-      <div class="brand">LIVE KENYA <span>DLS</span></div>
-      <div class="sub">Hold My Match Arena</div>
-    </div>
-  </div>
-  <div class="wallet" id="wallet">KES 0.00</div>
+<div class="logo" onclick="adminClick()">LIVE KENYA <span>DLS</span><div style="font-size:10px;opacity:.6">12% Partners + Aviator BOOST</div></div>
+<div class="wallet" id="wallet">KES 0.00</div>
 </div>
 
-<div class="tabs">
-  <button class="tab active">All Games</button>
-  <button class="tab">DLS 25 Live Now</button>
-  <button class="tab">Boost Plane Hot <span class="badge">HOT</span></button>
+<div id="auth" class="card">
+<h3 id="authT">Register - DLS Kenya</h3>
+<input id="phone" placeholder="Phone e.g. 0112678036" type="tel">
+<input id="pin" placeholder="4-digit PIN" type="password" maxlength="4">
+<button class="btn-y" onclick="reg()">Register / Login</button>
+<button class="btn-d" style="width:100%;margin-top:6px" onclick="togAuth()">Switch Login / Register</button>
+<p class="small">Wrong PIN = Denied</p>
 </div>
 
+<div id="home" class="hidden">
+<div style="padding:10px;display:flex;overflow:auto">
+<button id="tabBtnAvia" class="tab active" onclick="showTab('avia')">🚀 Boost Plane HOT <span class="boost-badge">MAIN BOOST</span></button>
+<button id="tabBtnDls" class="tab" onclick="showTab('dls')">⚽ DLS Live Partners</button>
+<button class="tab" onclick="showTab('all')">Arena</button>
+<button class="tab" onclick="logout()">Logout</button>
+</div>
+
+<div id="t-avia" class="card">
+<h3>Boost Plane Hot 🚀 - MAIN BOOST <span class="boost-badge">12% Commission</span></h3>
+<p class="small">Your main profit booster - Players play daily - You keep 12% + 100% on instant crash</p>
+<div id="planeBox"><span id="planeMult">1.00x</span><small id="planeStatus">Ready to Fly - Place Bet</small></div>
+<input id="aviaStake" type="number" placeholder="Bet KES - Max 1000" max="1000">
+<div class="row"><button class="btn-d" onclick="startAvia()" style="background:#ff3b6b">Bet & Fly 🚀</button><button class="btn-d" onclick="cashOut()" style="background:#4caf50">Cash Out 💰</button></div>
+<p id="aviaRes" class="small">History: <span id="aviaHist"></span></p>
+<p class="small">How you earn: Normal win = you keep 12% of profit. Instant crash 1.00x (12% chance) = you keep 100% stake!</p>
+</div>
+
+<div id="t-dls" class="hidden">
 <div class="card">
-  <h3>Welcome to DLS Kenya Arena</h3>
-  <p class="small">Play DLS 25, Build Your Dream Team, Win Big!</p>
-  <div class="row">
-    <button class="btn-dark" onclick="deposit()">Deposit M-Pesa</button>
-    <button class="btn-dark" onclick="withdraw()">Withdraw</button>
-  </div>
-  <button class="btn-yellow" onclick="startGame()">Hold My Match - Start</button>
-  <p class="small">Max Bet: KES 1,000 | Safe Gaming | 18+</p>
+<h3>DLS Live Partners ⚽ - 12% Commission</h3>
+<p class="small">Partner vs Partner - Pot 1000 = You keep 120, Winner gets 880</p>
+<input id="stake" type="number" placeholder="Stake Max 1000" max="1000">
+<button class="btn-y" onclick="createMatch()">Create Match - Hold My Match</button>
+<div id="matchList"></div>
+<p id="dlsRes" class="small"></p>
+</div>
 </div>
 
+<div id="t-all" class="hidden">
 <div class="card">
-  <h3>DLS 25 Live Now ⚽</h3>
-  <p>Join live matches, stake on your team</p>
-  <button class="btn-yellow">Join Match</button>
+<h3>Welcome <span id="uPhone"></span></h3>
+<p class="small">Deposit to: <b>0112678036</b> M-Pesa</p>
+<div class="row"><button class="btn-d" onclick="deposit()">Deposit</button><button class="btn-d" onclick="withdraw()">Withdraw</button></div>
+<div class="row" style="margin-top:10px"><button class="btn-d" onclick="showTab('avia')">Play Aviator (Main Boost)</button><button class="btn-d" onclick="showTab('dls')">DLS Live</button></div>
+</div>
 </div>
 
-<div class="card">
-  <h3>Boost Plane Hot 🚀 <span class="badge">100x</span></h3>
-  <p>Plane flying - Cash out before crash!</p>
-  <div class="row">
-    <button class="btn-dark">1.00x</button>
-    <button class="btn-dark">History</button>
-  </div>
-  <button class="btn-yellow">Bet & Fly</button>
-  <p class="small">House keeps 20% | Fair Play | Instant crash possible</p>
-</div>
-
-<script>
-// Simple wallet logic - will connect to Firebase later
-let balance = 0;
-function deposit(){
-  let amt = prompt("Enter M-Pesa amount to deposit (KES):");
-  if(amt){
-    balance += parseInt(amt);
-    document.getElementById('wallet').innerText = 'KES ' + balance + '.00';
-    alert('STK Push sent! Check your M-Pesa. (Connect IntaSend later)');
-  }
-}
-function withdraw(){
-  let amt = prompt("Enter amount to withdraw:");
-  if(amt){
-    alert('Withdrawal request KES ' + amt + ' - Will be processed via M-Pesa');
-  }
-}
-function startGame(){
-  alert('DLS Match Starting... Your team is ready!');
-}
-// Admin - type /admin after your site link to access
-// Username: admin / Password: DLSBoss2026!
-</script>
-
-</body>
-</html>
+<div id="admin" class="card admin hidden">
+<h3>ADMIN MAIN SYSTEM - YOUR
