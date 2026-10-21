@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 <html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>LIVE KENYA DLS - Aviator Main Boost + DLS Partners 12%</title>
+<title>LIVE KENYA DLS - V7.3 Fixed</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}body{background:#0f0a1f;color:#fff;font-family:Arial}
-.header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#1a1233;position:sticky;top:0;z-index:20}
+.header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#1a1233;position:sticky;top:0}
 .logo{font-weight:900;font-size:18px}.logo span{color:#ffeb3b}
-.wallet{background:linear-gradient(90deg,#ffeb3b,#ff9800);color:#000;padding:8px 14px;border-radius:20px;font-weight:900}
+.wallet{background:#ffeb3b;color:#000;padding:8px 14px;border-radius:20px;font-weight:900}
 .card{background:#1e1239;margin:12px;padding:16px;border-radius:16px;border:1px solid #2a2250}
-.btn-y{background:#ffeb3b;color:#000;border:none;width:100%;padding:14px;border-radius:12px;font-weight:900;margin-top:10px;font-size:16px}
+.btn-y{background:#ffeb3b;color:#000;border:none;width:100%;padding:16px;border-radius:12px;font-weight:900;margin-top:10px;font-size:18px}
 .btn-d{background:#2a2250;color:#fff;border:1px solid #3a2e6b;padding:12px;border-radius:10px;flex:1;font-weight:700}
 .row{display:flex;gap:6px}
-input{width:100%;padding:12px;border-radius:10px;border:1px solid #3a2e6b;background:#0f0a1f;color:#fff;margin:6px 0}
+input{width:100%;padding:14px;border-radius:10px;border:1px solid #3a2e6b;background:#0f0a1f;color:#fff;margin:8px 0;font-size:16px}
 .hidden{display:none}
 .tab{background:#2a2250;color:#fff;border:none;padding:10px 14px;border-radius:20px;margin:2px;font-weight:700}
-.tab.active{background:#ffeb3b;color:#000;transform:scale(1.1)}
-#planeBox{height:180px;background:radial-gradient(circle at center,#1a1233,#0a0520);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:44px;font-weight:900;margin:10px 0;border:2px solid #ff3b6b;position:relative;overflow:hidden}
-#planeBox small{font-size:12px;opacity:.7;margin-top:8px}
+.tab.active{background:#ffeb3b;color:#000}
+#planeBox{height:180px;background:radial-gradient(circle at center,#1a1233,#0a0520);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:44px;font-weight:900;margin:10px 0;border:2px solid #ff3b6b}
 .small{font-size:11px;opacity:.7;margin-top:6px}
 .admin{background:#1a2a0a;border:1px solid #4caf50}
-.boost-badge{background:#ff3b6b;color:#fff;padding:3px 8px;border-radius:10px;font-size:10px;animation:pulse 1s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.boost-badge{background:#ff3b6b;color:#fff;padding:3px 8px;border-radius:10px;font-size:10px}
 .matchBox{background:#0f0a1f;padding:10px;border-radius:10px;margin:8px 0;border:1px solid #3a2e6b}
 </style></head><body>
 <div class="header">
@@ -29,50 +27,76 @@ input{width:100%;padding:12px;border-radius:10px;border:1px solid #3a2e6b;backgr
 
 <div id="auth" class="card">
 <h3 id="authT">Register - DLS Kenya</h3>
-<input id="phone" placeholder="Phone e.g. 0112678036" type="tel">
-<input id="pin" placeholder="4-digit PIN" type="password" maxlength="4">
-<button class="btn-y" onclick="reg()">Register / Login</button>
-<button class="btn-d" style="width:100%;margin-top:6px" onclick="togAuth()">Switch Login / Register</button>
-<p class="small">Wrong PIN = Denied</p>
+<input id="phone" placeholder="Phone e.g. 0112678036" type="tel" value="">
+<input id="pin" placeholder="4-digit PIN e.g. 1234" type="tel" maxlength="4" inputmode="numeric">
+<button class="btn-y" onclick="doRegister()">Register / Login - TAP HERE</button>
+<button class="btn-d" style="width:100%;margin-top:8px" onclick="toggleAuth()">Switch to Login</button>
+<p class="small">Wrong PIN = Denied | 0112678036 deposit</p>
+<p id="debug" class="small" style="color:#ffeb3b"></p>
 </div>
 
 <div id="home" class="hidden">
 <div style="padding:10px;display:flex;overflow:auto">
-<button id="tabBtnAvia" class="tab active" onclick="showTab('avia')">🚀 Boost Plane HOT <span class="boost-badge">MAIN BOOST</span></button>
-<button id="tabBtnDls" class="tab" onclick="showTab('dls')">⚽ DLS Live Partners</button>
+<button id="btnAvia" class="tab active" onclick="showTab('avia')">🚀 Boost Plane HOT MAIN BOOST</button>
+<button id="btnDls" class="tab" onclick="showTab('dls')">⚽ DLS Live 12%</button>
 <button class="tab" onclick="showTab('all')">Arena</button>
 <button class="tab" onclick="logout()">Logout</button>
 </div>
 
 <div id="t-avia" class="card">
-<h3>Boost Plane Hot 🚀 - MAIN BOOST <span class="boost-badge">12% Commission</span></h3>
-<p class="small">Your main profit booster - Players play daily - You keep 12% + 100% on instant crash</p>
-<div id="planeBox"><span id="planeMult">1.00x</span><small id="planeStatus">Ready to Fly - Place Bet</small></div>
-<input id="aviaStake" type="number" placeholder="Bet KES - Max 1000" max="1000">
-<div class="row"><button class="btn-d" onclick="startAvia()" style="background:#ff3b6b">Bet & Fly 🚀</button><button class="btn-d" onclick="cashOut()" style="background:#4caf50">Cash Out 💰</button></div>
-<p id="aviaRes" class="small">History: <span id="aviaHist"></span></p>
-<p class="small">How you earn: Normal win = you keep 12% of profit. Instant crash 1.00x (12% chance) = you keep 100% stake!</p>
+<h3>Boost Plane Hot 🚀 MAIN BOOST <span class="boost-badge">12%</span></h3>
+<div id="planeBox"><span id="planeMult">1.00x</span><small id="planeStatus">Ready to Fly</small></div>
+<input id="aviaStake" type="number" placeholder="Bet KES Max 1000" max="1000">
+<div class="row"><button class="btn-d" onclick="startAvia()" style="background:#ff3b6b">Bet & Fly</button><button class="btn-d" onclick="cashOut()" style="background:#4caf50">Cash Out</button></div>
+<p id="aviaRes" class="small"></p>
 </div>
 
-<div id="t-dls" class="hidden">
-<div class="card">
-<h3>DLS Live Partners ⚽ - 12% Commission</h3>
-<p class="small">Partner vs Partner - Pot 1000 = You keep 120, Winner gets 880</p>
+<div id="t-dls" class="card hidden">
+<h3>DLS Live Partners ⚽ 12% Commission</h3>
+<p class="small">Pot 1000 = You keep 120, Winner 880</p>
 <input id="stake" type="number" placeholder="Stake Max 1000" max="1000">
 <button class="btn-y" onclick="createMatch()">Create Match - Hold My Match</button>
 <div id="matchList"></div>
 <p id="dlsRes" class="small"></p>
 </div>
-</div>
 
-<div id="t-all" class="hidden">
-<div class="card">
+<div id="t-all" class="card hidden">
 <h3>Welcome <span id="uPhone"></span></h3>
 <p class="small">Deposit to: <b>0112678036</b> M-Pesa</p>
 <div class="row"><button class="btn-d" onclick="deposit()">Deposit</button><button class="btn-d" onclick="withdraw()">Withdraw</button></div>
-<div class="row" style="margin-top:10px"><button class="btn-d" onclick="showTab('avia')">Play Aviator (Main Boost)</button><button class="btn-d" onclick="showTab('dls')">DLS Live</button></div>
-</div>
 </div>
 
 <div id="admin" class="card admin hidden">
-<h3>ADMIN MAIN SYSTEM - YOUR
+<h3>ADMIN MAIN SYSTEM - YOUR PHONE</h3>
+<p id="commView" style="font-size:22px;color:#ffeb3b;font-weight:900">YOUR COMMISSION 12%: KES 0</p>
+<div id="aStats"></div>
+<button class="btn-d" onclick="clearAll()">Reset All</button>
+</div>
+</div>
+
+<script>
+var users = JSON.parse(localStorage.getItem('dls_u')||'[]');
+var cur = JSON.parse(localStorage.getItem('dls_c')||'null');
+var isAdmin = localStorage.getItem('dls_ad')==='1';
+var matches = JSON.parse(localStorage.getItem('dls_m')||'[]');
+var commission = parseFloat(localStorage.getItem('dls_comm')||'0');
+var av = {playing:false,mult:1,stake:0,interval:null};
+
+function toggleAuth(){
+ var t=document.getElementById('authT').innerText;
+ if(t.indexOf('Register')>-1){document.getElementById('authT').innerText='Login - DLS Kenya';}
+ else {document.getElementById('authT').innerText='Register - DLS Kenya';}
+ document.getElementById('debug').innerText='Mode: '+document.getElementById('authT').innerText;
+}
+
+function doRegister(){
+ var ph=document.getElementById('phone').value.trim();
+ var pin=document.getElementById('pin').value.trim();
+ document.getElementById('debug').innerText='Trying: '+ph+' PIN:'+pin;
+ if(ph.length<10){alert('Enter Phone 10 digits like 0112678036');return;}
+ if(pin.length!=4){alert('Enter 4-digit PIN like 1234');return;}
+ var mode=document.getElementById('authT').innerText;
+ if(mode.indexOf('Login')>-1){
+   // LOGIN MODE
+   var f=null;
+   for(var i=0;i
