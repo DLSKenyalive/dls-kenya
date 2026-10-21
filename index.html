@@ -1,52 +1,94 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LIVE KENYA DLS - PRO FIX</title>
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:linear-gradient(180deg,#120c2b,#0a0520);color:#fff;min-height:100vh}.header{background:#1a1233;display:flex;justify-content:space-between;align-items:center;padding:14px 18px;position:sticky;top:0;z-index:10;border-bottom:1px solid #2a2250}.logo{font-weight:900;font-size:22px}.logo span{color:#ffeb3b}.logo small{font-size:10px;color:#8b7fb8;display:block}.wallet{background:linear-gradient(135deg,#ffeb3b,#ffc107);color:#000;padding:10px 18px;border-radius:100px;font-weight:900}.card{background:linear-gradient(145deg,#221a44,#1c1439);margin:14px;border-radius:20px;padding:18px;border:1px solid rgba(255,255,255,0.08)}.btn-main{background:linear-gradient(135deg,#ffeb3b,#ffc107);color:#000;border:none;width:100%;padding:18px;border-radius:16px;font-weight:900;font-size:17px;margin-top:12px;box-shadow:0 6px 20px rgba(255,235,59,0.4)}.row{display:flex;gap:10px}input{width:100%;padding:16px;border-radius:14px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.4);color:#fff;margin:10px 0;font-size:16px}.hidden{display:none!important}.tabs{background:rgba(0,0,0,0.3);padding:6px;border-radius:100px;display:flex;gap:4px;margin:10px 14px}.tab{background:transparent;color:#8b7fb8;border:none;padding:12px 18px;border-radius:100px;font-weight:800}.tab.active{background:#fff;color:#000}#planeBox{height:200px;background:radial-gradient(ellipse at center,#2a1f5e,#0f0a2a);border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid rgba(255,59,107,0.3);margin:14px 0}#mult{font-size:52px;font-weight:900}#pStat{font-size:13px;color:#ffeb3b;background:rgba(255,235,59,0.1);padding:6px 12px;border-radius:100px;margin-top:8px}.badge{background:#ff3b6b;color:#fff;padding:4px 10px;border-radius:100px;font-size:10px;font-weight:900}.small{font-size:11px;color:#8b7fb8;margin-top:8px}.admin{background:#1a2a0a!important;border:1px solid #4caf50!important}.mbox{background:rgba(0,0,0,0.3);padding:14px;border-radius:14px;margin:10px 0;border:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center}.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.stat{background:rgba(0,0,0,0.3);padding:12px;border-radius:12px;text-align:center}.stat b{font-size:18px;color:#ffeb3b;display:block}.stat span{font-size:10px;color:#8b7fb8}</style></head><body>
-<div class="header"><div class="logo" onclick="adminTap()">LIVE KENYA <span>DLS</span><small>PRO • 12% PARTNERS + BOOST</small></div><div class="wallet" id="walletBtn">0.00</div></div>
-<div id="auth" class="card" style="margin-top:20px"><div style="text-align:center"><div style="font-size:40px">⚽🚀</div><h2 style="font-size:24px;font-weight:900">Welcome to DLS Kenya</h2><p class="small">Professional • 12% Commission</p></div><input id="phone" type="tel" value="0112678036"><input id="pin" type="tel" maxlength="4" value="1234"><button class="btn-main" id="enterBtn">ENTER APP →</button><p id="authMsg" style="text-align:center;color:#ffeb3b;margin-top:12px;font-weight:800"></p><p class="small" style="text-align:center">Deposit to <b style="color:#ffeb3b">0112678036</b> M-Pesa</p><button class="small" style="background:none;border:none;color:#8b7fb8;margin-top:10px" onclick="clearAll()">Having trouble? Tap here to Reset</button></div>
-<div id="home" class="hidden"><div class="tabs"><button id="tabA" class="tab active" onclick="openTab('avia')">🚀 Aviator</button><button id="tabD" class="tab" onclick="openTab('dls')">⚽ DLS Live</button><button class="tab" onclick="openTab('arena')">🏟️ Wallet</button><button class="tab" onclick="logoutApp()">Logout</button></div>
-<div id="t-avia" class="card"><div style="display:flex;justify-content:space-between"><h3>🚀 Aviator Boost</h3><span class="badge">MAIN BOOST 12%</span></div><div id="planeBox"><div id="mult">1.00x</div><div id="pStat">READY TO FLY ✈️</div></div><input id="aviaBet" type="number" value="100" placeholder="Bet 10-1000"><div class="row"><button class="btn-main" style="background:linear-gradient(135deg,#ff3b6b,#e91e63);color:#fff;margin:0" onclick="betFly()">BET & FLY</button><button class="btn-main" style="background:linear-gradient(135deg,#00e676,#00c853);color:#fff;margin:0" onclick="doCashOut()">CASH OUT</button></div><p id="aviaMsg" class="small"></p></div>
-<div id="t-dls" class="card hidden"><h3>⚽ DLS Partners <span class="badge" style="background:#00e676">12% COMMISSION</span></h3><p class="small">Pot 1000 → You keep 120, Winner 880</p><input id="dlsBet" type="number" value="100"><button class="btn-main" onclick="createMatch()">CREATE MATCH</button><div id="matchList"></div><p id="dlsMsg" class="small"></p></div>
-<div id="t-arena" class="card hidden"><h3>💼 Wallet</h3><p>Deposit: <b style="color:#ffeb3b">0112678036</b></p><div class="stat-grid"><div class="stat"><b id="balShow">KES 0</b><span>Balance</span></div><div class="stat"><b id="profShow">KES 0</b><span>Profit</span></div></div><div class="row" style="margin-top:14px"><button style="flex:1;padding:12px;border-radius:12px;background:#2a2250;color:#fff;border:none" onclick="doDeposit()">Deposit</button><button style="flex:1;padding:12px;border-radius:12px;background:#2a2250;color:#fff;border:none" onclick="doWithdraw()">Withdraw</button></div><div id="hist" style="margin-top:10px"></div></div>
-<div id="admin" class="card admin hidden"><h3>🔐 ADMIN MAIN</h3><p id="commView" style="color:#ffeb3b;font-size:26px;font-weight:900">COMMISSION: KES 0</p><div id="adminStats"></div><button style="padding:10px;border-radius:10px;background:#2a2250;color:#fff;border:none;margin-top:10px" onclick="clearAll()">Reset All Data</button></div></div>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DLS Kenya</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#f2f2f2;color:#222;min-height:100vh;padding-bottom:70px}
+.top{background:#006633;padding:18px 16px 90px 16px}.top h1{color:#fff;font-weight:900;font-size:22px}
+.card{margin:-70px 14px 0 14px;background:#fff;border-radius:20px;padding:20px;box-shadow:0 8px 25px rgba(0,0,0,.15);border:2px solid #00a651}
+.card h2{font-size:26px;font-weight:900}.sub{color:#666;font-size:14px;margin:4px 0 14px}
+label{font-weight:800;font-size:13px;margin-top:12px;display:block}input{width:100%;padding:15px;border-radius:12px;border:none;background:#eef0f4;margin-top:6px;font-size:16px}
+.btn-green{background:#00a651;color:#fff;border:none;width:100%;padding:18px;border-radius:0 0 18px 18px;font-weight:900;font-size:18px;margin:20px -20px -20px -20px;width:calc(100% + 40px)}
+.join{display:flex;justify-content:space-between;margin:18px 4px;font-size:14px}.join b{color:#00a651}
+.pochi{background:#fff;margin:16px 14px;border-radius:16px;padding:16px;box-shadow:0 3px 12px rgba(0,0,0,.08)}
+.pochi-box{background:#e6f6ec;border:1.5px solid #00a651;border-radius:12px;padding:12px;display:flex;gap:10px;align-items:center}
+.p-logo{background:#fff;border:1px solid #ccc;padding:6px 10px;border-radius:8px;font-weight:900;color:#00a651;font-size:11px;line-height:1}
+.btns{display:flex;gap:12px;margin:0 14px}.b{flex:1;padding:18px;border-radius:16px;font-weight:900;font-size:15px;border:none}.b.g{background:#00a651;color:#fff}.b.w{background:#fff;color:#00a651;border:2px solid #00a651}
+.secure{text-align:center;margin:16px;color:#555;font-size:12px}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ddd;display:flex;justify-content:space-around;padding:10px 0}.nav div{font-size:11px;text-align:center;color:#888}.nav div.on{color:#00a651;font-weight:900}
+.hidden{display:none!important}
+.avia{background:linear-gradient(135deg,#006633,#00a651);color:#fff;border-radius:18px;padding:16px;margin:14px}
+.plane{background:#0a0a0a;border-radius:12px;height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:10px 0}
+#mult{font-size:42px;font-weight:900}
+</style></head><body>
+<div class="top" onclick="adminTap()"><h1>DLS Kenya</h1></div>
+
+<div id="authScreen">
+<div class="card">
+<h2>Welcome Back</h2><p class="sub">Login to continue</p>
+<label>Phone Number</label><input id="phone" type="tel" placeholder="+254 7XX XXX XXX" value="0112678036">
+<label>PIN</label><input id="pin" type="password" placeholder="••••••" value="1234">
+<button class="btn-green" onclick="enterApp()">LOGIN</button>
+<p id="msg" style="text-align:center;color:red;margin-top:10px;font-weight:700"></p>
+<div class="join"><span>Don't have an account?</span><b onclick="joinNow()">JOIN NOW</b></div>
+</div>
+<div class="pochi">
+<p style="font-weight:800;margin-bottom:8px">Deposit via Pochi La Biashara</p>
+<div class="pochi-box"><div class="p-logo">pochi<br>M-Pesa</div><div><b>Pochi La Biashara</b><br><span style="font-size:12px">Pay to 0112678036 • Name: DLS KENYA</span></div></div>
+</div>
+<div class="btns"><button class="b g" onclick="enterApp()">DEPOSIT ↓</button><button class="b w" onclick="enterApp()">WITHDRAW ↑</button></div>
+<p class="secure">Secure • Fast • 24/7 Support</p>
+</div>
+
+<div id="appScreen" class="hidden">
+<div class="avia">
+<div style="display:flex;justify-content:space-between"><b>🚀 Aviator Boost - HOT MAIN BOOST</b><span style="background:#ff3b6b;padding:3px 8px;border-radius:10px;font-size:10px">12% YOURS</span></div>
+<div class="plane"><div id="mult">1.00x</div><div id="pStat" style="color:#ffeb3b;font-size:12px">READY TO FLY ✈️</div></div>
+<input id="aviaBet" type="number" value="100" style="background:#fff;border-radius:10px;padding:14px;width:100%;border:none"><div style="display:flex;gap:8px;margin-top:8px"><button style="flex:1;padding:14px;border-radius:12px;background:#ff3b6b;color:#fff;border:none;font-weight:900" onclick="betFly()">BET & FLY ✈️</button><button style="flex:1;padding:14px;border-radius:12px;background:#00e676;color:#fff;border:none;font-weight:900" onclick="doCashOut()">CASH OUT 💰</button></div><p id="aviaMsg" style="font-size:11px;margin-top:6px"></p>
+<p style="font-size:10px;margin-top:6px;opacity:.8">12% instant crash 1.00x = You keep 100% • Profit 12% commission = Your 12%</p>
+</div>
+<div class="pochi">
+<h3>⚽ DLS Live Partners 12%</h3><p style="font-size:11px;color:#666">Pot 1000 → You keep 120, Winner 880</p>
+<input id="dlsBet" type="number" value="100" placeholder="Stake Max 1000"><button class="b g" style="width:100%;margin-top:8px" onclick="createMatch()">Create Match - Hold My Match</button>
+<div id="matchList" style="margin-top:10px"></div>
+</div>
+<div class="pochi">
+<h3>💼 Wallet - Deposit via Pochi 0112678036</h3>
+<p>Balance: <b id="balShow">KES 0</b> | Profit: <b id="profShow">KES 0</b></p>
+<div style="display:flex;gap:8px;margin-top:10px"><button class="b g" onclick="doDeposit()">DEPOSIT</button><button class="b w" onclick="doWithdraw()">WITHDRAW</button></div>
+<div id="hist" style="font-size:12px;margin-top:10px"></div>
+<p id="commView" style="color:#00a651;font-weight:900;margin-top:10px">YOUR COMMISSION 12%: KES 0</p>
+</div>
+<div id="admin" class="pochi hidden" style="border:1px solid #00a651;background:#e6f6ec"><h3>🔐 ADMIN - YOUR PHONE</h3><div id="adminStats" style="font-size:12px;margin-top:8px"></div><button onclick="clearData()" style="margin-top:8px;padding:8px;border-radius:8px;border:none;background:#333;color:#fff">Reset All</button></div>
+</div>
+
+<div class="nav">
+<div class="on" onclick="showAuth()">🏠<br>Home</div>
+<div onclick="document.getElementById('appScreen').classList.remove('hidden');document.getElementById('authScreen').classList.add('hidden');openSection('avia')">⚽<br>Matches</div>
+<div onclick="document.getElementById('appScreen').classList.remove('hidden');document.getElementById('authScreen').classList.add('hidden')">👤<br>Account</div>
+</div>
+
 <script>
 var users=[],cur=null,matches=[],comm=0,isAdmin=false,av={playing:false,mult:1,stake:0,iv:null};
-try{users=JSON.parse(localStorage.getItem('dls_u91')||'[]')}catch(e){users=[]}
-try{cur=JSON.parse(localStorage.getItem('dls_c91')||'null')}catch(e){cur=null}
-try{matches=JSON.parse(localStorage.getItem('dls_m91')||'[]')}catch(e){matches=[]}
-try{comm=parseFloat(localStorage.getItem('dls_comm91')||'0')}catch(e){comm=0}
-try{isAdmin=localStorage.getItem('dls_ad91')==='1'}catch(e){}
-
+try{users=JSON.parse(localStorage.getItem('dls_v11')||'[]')}catch(e){}
+try{cur=JSON.parse(localStorage.getItem('dls_c11')||'null')}catch(e){}
+try{matches=JSON.parse(localStorage.getItem('dls_m11')||'[]')}catch(e){}
+try{comm=parseFloat(localStorage.getItem('dls_comm11')||'0')}catch(e){}
+try{isAdmin=localStorage.getItem('dls_ad11')==='1'}catch(e){}
+function joinNow(){enterApp()}
+function showAuth(){document.getElementById('authScreen').classList.remove('hidden');document.getElementById('appScreen').classList.add('hidden')}
+function openSection(s){}
 function enterApp(){
- try{
-  var ph=document.getElementById('phone').value.trim(),pin=document.getElementById('pin').value.trim(),msg=document.getElementById('authMsg');
-  if(ph.length<10){msg.innerText='❌ Phone 10 digits';return}
-  if(pin.length!=4){msg.innerText='❌ PIN 4 digits';return}
-  msg.innerText='⏳ Entering...';
-  // FIX: Always allow 0112678036 with 1234 - override old data
-  if(ph==='0112678036'){ cur={phone:ph,pin:pin,balance:100,history:[],profit:0}; users=[]; users.push(cur); }
-  else {
-    var f=null; for(var i=0;i<users.length;i++){if(users[i].phone===ph){f=users[i];break}}
-    if(f){ if(f.pin!==pin){msg.innerText='❌ WRONG PIN! Tap Reset below';return} cur=f }
-    else { cur={phone:ph,pin:pin,balance:0,history:[],profit:0}; users.push(cur); }
-  }
-  localStorage.setItem('dls_u91',JSON.stringify(users));
-  localStorage.setItem('dls_c91',JSON.stringify(cur));
-  showHome();
- }catch(e){ document.getElementById('authMsg').innerText='Error: '+e.message; alert(e.message); }
+ var ph=document.getElementById('phone').value.trim(),pin=document.getElementById('pin').value.trim(),m=document.getElementById('msg');
+ if(ph.length<10){m.innerText='Phone 10 digits';return} if(pin.length<4){m.innerText='PIN 4 digits';return}
+ m.innerText='⏳ Logging in...';
+ if(ph==='0112678036'){cur={phone:ph,pin:pin,balance:100,history:[],profit:0};users=[cur];}
+ else{var f=null;for(var i=0;i<users.length;i++){if(users[i].phone===ph){f=users[i];break}} if(f){if(f.pin!==pin){m.innerText='WRONG PIN';return} cur=f}else{cur={phone:ph,pin:pin,balance:0,history:[],profit:0};users.push(cur)}}
+ localStorage.setItem('dls_v11',JSON.stringify(users));localStorage.setItem('dls_c11',JSON.stringify(cur));
+ document.getElementById('authScreen').classList.add('hidden');document.getElementById('appScreen').classList.remove('hidden');updateAll();if(isAdmin)document.getElementById('admin').classList.remove('hidden');renderMatches();
 }
-function showHome(){document.getElementById('auth').classList.add('hidden');document.getElementById('home').classList.remove('hidden');updateAll();if(isAdmin)document.getElementById('admin').classList.remove('hidden');renderMatches();renderAdmin()}
-function updateAll(){if(!cur)return;document.getElementById('walletBtn').innerText=cur.balance+'.00';document.getElementById('balShow').innerText='KES '+cur.balance;document.getElementById('profShow').innerText='KES '+(cur.profit||0);document.getElementById('commView').innerText='COMMISSION: KES '+Math.floor(comm);var h='';for(var i=(cur.history||[]).length-1;i>=0&&i>cur.history.length-6;i--){var it=cur.history[i];h+='<div class="mbox"><span>'+it.t+'</span><b>KES '+it.a+'</b></div>'}document.getElementById('hist').innerHTML=h||'<p class="small">No transactions</p>';for(var j=0;j<users.length;j++){if(users[j].phone===cur.phone){users[j]=cur;break}}localStorage.setItem('dls_u91',JSON.stringify(users));localStorage.setItem('dls_c91',JSON.stringify(cur));localStorage.setItem('dls_comm91',comm);renderAdmin()}
-function openTab(t){document.getElementById('t-avia').classList.add('hidden');document.getElementById('t-dls').classList.add('hidden');document.getElementById('t-arena').classList.add('hidden');document.getElementById('t-'+t).classList.remove('hidden');document.getElementById('tabA').classList.remove('active');document.getElementById('tabD').classList.remove('active');if(t==='avia')document.getElementById('tabA').classList.add('active');if(t==='dls')document.getElementById('tabD').classList.add('active')}
-function doDeposit(){var a=prompt('Deposit amount:');if(!a)return;a=parseInt(a);cur.balance+=a;cur.history.push({t:'Deposit',a:a});updateAll();alert('Credited KES '+a)}
-function doWithdraw(){var a=prompt('Withdraw:');if(!a)return;a=parseInt(a);if(a>cur.balance){alert('Low bal');return}cur.balance-=a;cur.history.push({t:'Withdraw',a:-a});updateAll();alert('Withdraw KES '+a)}
-function createMatch(){var s=parseInt(document.getElementById('dlsBet').value)||0;if(s>cur.balance){alert('Low bal');return}cur.balance-=s;var m={id:Date.now(),creator:cur.phone,stake:s,status:'Waiting'};matches.push(m);localStorage.setItem('dls_m91',JSON.stringify(matches));updateAll();renderMatches();alert('Match KES '+s)}
-function renderMatches(){var html='';for(var i=matches.length-1;i>=0;i--){var m=matches[i];if(m.status==='Waiting'&&m.creator!==cur.phone){html+='<div class="mbox"><div><b>'+m.creator+'</b> KES '+m.stake+'</div><button style="padding:8px 16px;background:#00e676;color:#fff;border:none;border-radius:10px" onclick="joinM('+m.id+')">JOIN</button></div>'}else if(m.creator===cur.phone){html+='<div class="mbox">Your Match KES '+m.stake+' - '+m.status+'</div>'}}document.getElementById('matchList').innerHTML=html||'<p class="small" style="text-align:center;padding:20px">No matches - Create one!</p>'}
-function joinM(id){var m=null;for(var i=0;i<matches.length;i++){if(matches[i].id===id){m=matches[i];break}}if(!m)return;if(m.stake>cur.balance){alert('Low bal');return}cur.balance-=m.stake;var pot=m.stake*2,com=pot*0.12,winAmt=pot-com;comm+=com;var win=Math.random()>0.5;var winPh=win?m.creator:cur.phone;if(winPh===cur.phone){cur.balance+=winAmt;cur.profit=(cur.profit||0)+(winAmt-m.stake);alert('YOU WON! '+winAmt);cur.history.push({t:'Win',a:winAmt})}else{alert('Winner '+winPh+' Your comm '+Math.floor(com));cur.history.push({t:'Loss',a:-m.stake})}m.status='Finished';updateAll();localStorage.setItem('dls_m91',JSON.stringify(matches));renderMatches()}
-function betFly(){if(av.playing){alert('Flying!');return}var s=parseInt(document.getElementById('aviaBet').value)||0;if(s>cur.balance){alert('Low bal');return}cur.balance-=s;av.stake=s;av.mult=1;av.playing=true;document.getElementById('mult').innerText='1.00x';document.getElementById('pStat').innerText='FLYING...';updateAll();if(Math.random()<0.12){document.getElementById('mult').innerText='1.00x 💥';document.getElementById('pStat').innerText='INSTANT CRASH YOU KEEP 100%';comm+=s;cur.history.push({t:'Crash 100%',a:0});updateAll();av.playing=false;return}var crash=Math.random()*6+1.2;av.iv=setInterval(function(){av.mult+=0.06;document.getElementById('mult').innerText=av.mult.toFixed(2)+'x';if(av.mult>=crash){clearInterval(av.iv);av.playing=false;document.getElementById('mult').innerText=av.mult.toFixed(2)+'x 💥';document.getElementById('pStat').innerText='CRASHED LOST '+s;comm+=s*0.12;cur.history.push({t:'Loss',a:-s});cur.profit=(cur.profit||0)-s;updateAll()}},90)}
-function doCashOut(){if(!av.playing){alert('No game');return}clearInterval(av.iv);av.playing=false;var profit=av.stake*(av.mult-1),c=profit*0.12,win=profit-c;comm+=c;cur.balance+=av.stake+win;cur.profit=(cur.profit||0)+win;document.getElementById('mult').innerText='WIN '+av.mult.toFixed(2)+'x';document.getElementById('pStat').innerText='CASHED PROFIT '+Math.floor(win);cur.history.push({t:'Win '+av.mult.toFixed(2)+'x',a:win});updateAll()}
-var tap=0;function adminTap(){tap++;if(tap>=5){tap=0;var u=prompt('Admin user:'),p=prompt('Admin pass:');if(u==='admin'&&p==='DLSBoss2026!'){isAdmin=true;localStorage.setItem('dls_ad91','1');alert('ADMIN MAIN!');document.getElementById('admin').classList.remove('hidden');renderAdmin()}else alert('Wrong!')}}
-function renderAdmin(){if(!isAdmin)return;var tot=users.length,bal=0;for(var i=0;i<users.length;i++)bal+=users[i].balance;var h='<div class="stat-grid"><div class="stat"><b>'+tot+'</b><span>Users</span></div><div class="stat"><b>KES '+bal+'</b><span>Bal</span></div></div>';for(var j=0;j<users.length;j++){var u=users[j];h+='<div class="mbox"><span>'+u.phone+' PIN '+u.pin+'</span><b>KES '+u.balance+'</b></div>'}document.getElementById('adminStats').innerHTML=h;document.getElementById('commView').innerText='COMMISSION: KES '+Math.floor(comm)}
-function logoutApp(){localStorage.removeItem('dls_c91');location.reload()}
-function clearAll(){if(confirm('Clear all saved data?')){localStorage.clear();location.reload()}}
-document.addEventListener('DOMContentLoaded',function(){var b=document.getElementById('enterBtn');if(b){b.addEventListener('click',enterApp);b.addEventListener('touchend',enterApp);b.addEventListener('touchstart',enterApp);}});
-if(cur){showHome()}
-</script></body></html>
+function updateAll(){if(!cur)return;document.getElementById('balShow').innerText='KES '+cur.balance;document.getElementById('profShow').innerText='KES '+(cur.profit||0);document.getElementById('commView').innerText='YOUR COMMISSION 12%: KES '+Math.floor(comm);var h='';for(var i=(cur.history||[]).length-1;i>=0&&i>cur.history.length-5;i--){h+='<div>'+cur.history[i].t+' KES '+cur.history[i].a+'</div>'}document.getElementById('hist').innerHTML=h;for(var j=0;j<users.length;j++){if(users[j].phone===cur.phone){users[j]=cur;break}}localStorage.setItem('dls_v11',JSON.stringify(users));localStorage.setItem('dls_c11',JSON.stringify(cur));localStorage.setItem('dls_comm11',comm);renderAdmin()}
+function doDeposit(){var a=prompt('Deposit amount to Pochi 0112678036:');if(!a)return;a=parseInt(a);cur.balance+=a;cur.history.push({t:'Deposit Pochi 0112678036',a:a});updateAll();alert('Credited KES '+a+' - Send to 0112678036 Pochi La Biashara DLS KENYA')}
+function doWithdraw(){var a=prompt('Withdraw amount:');if(!a)return;a=parseInt(a);if(a>cur.balance){alert('Low balance');return}cur.balance-=a;cur.history.push({t:'Withdraw',a:-a});updateAll();alert('Withdraw KES '+a+' to '+cur.phone)}
+function createMatch(){var s=parseInt(document.getElementById('dlsBet').value)||0;if(s>cur.balance){alert('Low balance - Deposit via Pochi 0112678036');return}cur.balance-=s;var mm={id:Date.now(),creator:cur.phone,stake:s,status:'Waiting'};matches.push(mm);localStorage.setItem('dls_m11',JSON.stringify(matches));updateAll();renderMatches();alert('Match Created KES '+s)}
+function renderMatches(){var html='';for(var i=matches.length-1;i>=0;i--){var m=matches[i];if(m.status==='Waiting'&&m.creator!==cur.phone){html+='<div style="display:flex;justify-content:space-between;background:#eef0f4;padding:10px;border-radius:10px;margin:6px 0"><span><b>'+m.creator+'</b> KES '+m.stake+'</span><button style="background:#00a651;color:#fff;border:none;padding:6px 12px;border-radius:8px" onclick="joinM('+m.id+')">JOIN</button></div>'}else if(m.creator===cur.phone){html+='<div style="background:#eef0f4;padding:10px;border-radius:10px;margin:6px 0">Your Match KES '+m.stake+' - '+m.status+'</div>'}}document.getElementById('matchList').innerHTML=html||'<p style="font-size:12px;color:#888;text-align:center;padding:10px">No matches - Create one!</p>'}
+function joinM(id){var m=null;for(var i=0;i<matches.length;i++){if(matches[i].id===id){m=matches[i];break}}if(!m)return;if(m.stake>cur.balance){alert('Low balance');return}cur.balance-=m.stake;var pot=m.stake*2,com=pot*0.12,winAmt=pot-com;comm+=com;var win=Math.random()>0.5;var winPh=win?m.creator:cur.phone;if(winPh===cur.phone){cur.balance+=winAmt;cur.profit=(cur.profit||0)+(winAmt-m.stake);alert('🎉 YOU WON Pot '+pot+' Commission '+Math.floor(com)+' You get '+winAmt);cur.history.push({t:'DLS Win',a:winAmt})}else{for(var k=0;k<users.length;k++){if(users[k].phone===m.creator){users[k].balance+=winAmt;break}}alert('Winner: '+winPh+' Your commission KES '+Math.floor(com));cur.history.push({t:'DLS Loss',a:-m.stake})}m.status='Finished';updateAll();localStorage.setItem('dls_m11',JSON.stringify(matches));renderMatches()}
+function betFly(){if(av.playing){alert('Already flying! Cash out!');return}var s=parseInt(document.getElementById('aviaBet').value)||0;if(s>cur.balance){alert('Low balance - Deposit via Pochi 0112678036');return}cur.balance-=s;av.stake=s;av.mult=1;av.playing=true;document.getElementById('mult').innerText='1.00x';document.getElementById('pStat').innerText='Flying...';updateAll();if(Math.random()<0.12){document.getElementById('mult').innerText='1.00x CRASH!';document.getElementById('pStat').innerText='Instant Crash You keep 100%';document.getElementById('aviaMsg').innerText='CRASH 1.00x! You keep 100% KES '+s;comm+=s;cur.history.push({t:'Aviator Crash 100%',a:0});updateAll();av.playing=false;return}var crashAt=Math.random()*6+1.2;av.iv=setInterval(function(){av.mult+=0.06;document.getElementById('mult').innerText=av.mult.toFixed(2)+'x ✈️';if(av.mult>=crashAt){clearInterval(av.iv);av.playing=false;document.getElementById('mult').innerText=av.mult.toFixed(2)+'x CRASH!';document.getElementById('pStat').innerText='Crashed! Lost KES '+s;document.getElementById('aviaMsg').innerText='Crashed at '+av.mult.toFixed(2)+'x';comm+=s*0.12;cur.history.push({t
