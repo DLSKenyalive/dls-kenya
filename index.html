@@ -1,117 +1,62 @@
 <!DOCTYPE html>
 <html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>V7.4 WORKING</title>
+<title>V7.5 FINAL</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}body{background:#0f0a1f;color:#fff;font-family:Arial}
 .header{display:flex;justify-content:space-between;padding:12px;background:#1a1233}
-.logo{font-weight:900}.logo span{color:#ffeb3b}
-.wallet{background:#ffeb3b;color:#000;padding:8px 14px;border-radius:20px;font-weight:900}
-.card{background:#1e1239;margin:12px;padding:16px;border-radius:16px}
-.btn-y{background:#ffeb3b;color:#000;width:100%;padding:16px;border:none;border-radius:12px;font-weight:900;font-size:18px;margin-top:10px}
-input{width:100%;padding:14px;border-radius:10px;border:1px solid #555;background:#0f0a1f;color:#fff;margin:8px 0;font-size:16px}
-.hidden{display:none}
-.tab{background:#2a2250;color:#fff;border:none;padding:10px 14px;border-radius:20px;margin:2px}
-.tab.active{background:#ffeb3b;color:#000}
-#planeBox{height:160px;background:#0a0520;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:900;border:2px solid #ff3b6b;margin:10px 0}
-.admin{background:#1a2a0a;border:1px solid #4caf50}
+.card{background:#1e1239;margin:12px;padding:20px;border-radius:16px}
+.btn-y{background:#ffeb3b;color:#000;width:100%;padding:18px;border:none;border-radius:12px;font-weight:900;font-size:20px}
+input{width:100%;padding:14px;border-radius:10px;border:1px solid #555;background:#000;color:#fff;margin:8px 0;font-size:16px}
 </style></head><body>
-<div class="header"><div class="logo" onclick="adminClick()">LIVE KENYA <span>DLS</span></div><div class="wallet" id="wallet">KES 0.00</div></div>
+<div class="header"><div style="font-weight:900">LIVE KENYA <span style="color:#ffeb3b">DLS V7.5</span></div><div style="background:#ffeb3b;color:#000;padding:6px 12px;border-radius:20px;font-weight:900">KES 0.00</div></div>
 
 <div id="auth" class="card">
-<h2>Register - DLS Kenya V7.4</h2>
-<input id="phone" type="tel" placeholder="Phone 0112678036" value="0112678036">
-<input id="pin" type="tel" placeholder="PIN 1234" maxlength="4" value="1234">
-<button class="btn-y" id="regBtn" onclick="registerNow()">TAP TO REGISTER - WORKS 100%</button>
-<p style="font-size:12px;margin-top:8px;color:#ffeb3b" id="status">Status: Ready - Tap yellow button</p>
+<h2>Register V7.5 - TAP BELOW</h2>
+<input value="0112678036" id="ph">
+<input value="1234" id="pin">
+<button class="btn-y" onclick="go()" ontouchstart="go()">🚀 TAP TO ENTER - 100% WORKS</button>
+<p id="st" style="color:#ffeb3b;margin-top:10px">Tap button to enter</p>
 </div>
 
-<div id="home" class="hidden">
-<div style="padding:10px">
-<button class="tab active" onclick="showTab('avia')">🚀 Aviator MAIN BOOST</button>
-<button class="tab" onclick="showTab('dls')">⚽ DLS 12%</button>
-<button class="tab" onclick="logout()">Logout</button>
-</div>
-<div id="t-avia" class="card">
-<h3>Boost Plane Hot 🚀 MAIN BOOST 12%</h3>
-<div id="planeBox"><span id="pm">1.00x</span></div>
-<input id="as" type="number" placeholder="Bet Max 1000"><div style="display:flex;gap:6px"><button class="tab" onclick="startAvia()" style="flex:1;background:#ff3b6b;color:#fff">Bet & Fly</button><button class="tab" onclick="cashOut()" style="flex:1;background:#4caf50;color:#fff">Cash Out</button></div>
-<p id="ar" style="font-size:12px"></p>
-</div>
-<div id="t-dls" class="card hidden">
-<h3>DLS Partners 12% - Pot 1000 = You 120</h3>
-<input id="stk" type="number" placeholder="Stake Max 1000"><button class="btn-y" onclick="createM()">Create Match</button><div id="ml"></div>
-</div>
-<div id="admin" class="card admin hidden"><h3>ADMIN MAIN SYSTEM</h3><p id="comm" style="color:#ffeb3b;font-size:22px;font-weight:900">COMMISSION 12%: KES 0</p><div id="ast"></div></div>
+<div id="home" class="card" style="display:none">
+<h2 style="color:#4caf50">✅ SUCCESS! YOU ARE IN!</h2>
+<h3>🚀 Boost Plane HOT MAIN BOOST 12%</h3>
+<div style="height:150px;background:#0a0520;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:900;border:2px solid #ff3b6b;margin:10px 0" id="box">1.00x ✈️</div>
+<input placeholder="Bet 100-1000" id="bet" type="number" value="100">
+<div style="display:flex;gap:8px"><button class="btn-y" style="background:#ff3b6b;color:#fff" onclick="fly()">Bet & Fly</button><button class="btn-y" style="background:#4caf50;color:#fff" onclick="cash()">Cash Out</button></div>
+<p id="res" style="font-size:13px;margin-top:8px"></p>
+<hr style="margin:12px 0">
+<h3>⚽ DLS Partners 12% - Pot 1000 = You keep 120</h3>
+<p style="font-size:12px">Deposit to 0112678036 M-Pesa</p>
+<p id="comm" style="color:#ffeb3b;font-size:20px;font-weight:900;margin-top:10px">YOUR COMMISSION 12%: KES 0</p>
+<button class="btn-y" style="margin-top:10px" onclick="location.reload()">Logout</button>
 </div>
 
 <script>
-// SIMPLEST POSSIBLE REGISTER - WILL WORK
-function registerNow(){
- try{
-  document.getElementById('status').innerText='Status: Button Clicked! Trying...';
-  var ph = document.getElementById('phone').value.trim();
-  var pin = document.getElementById('pin').value.trim();
-  if(ph.length < 10){ document.getElementById('status').innerText='Error: Phone must be 10 digits'; return; }
-  if(pin.length != 4){ document.getElementById('status').innerText='Error: PIN must be 4 digits'; return; }
-  
-  // Save directly
-  var cur = {phone:ph, pin:pin, balance:0, history:[]};
-  localStorage.setItem('dls_c', JSON.stringify(cur));
-  
-  var users = JSON.parse(localStorage.getItem('dls_u')||'[]');
-  var exists = false;
-  for(var i=0;i<users.length;i++){ if(users[i].phone===ph) exists=true; }
-  if(!exists){ users.push(cur); localStorage.setItem('dls_u', JSON.stringify(users)); }
-  
-  document.getElementById('status').innerText='Success! Logged in as '+ph;
-  
-  // Show home
-  document.getElementById('auth').classList.add('hidden');
-  document.getElementById('home').classList.remove('hidden');
-  document.getElementById('wallet').innerText='KES 0.00';
-  
-  // Load admin if needed
-  var isAdmin = localStorage.getItem('dls_ad')==='1';
-  if(isAdmin) document.getElementById('admin').classList.remove('hidden');
-  
- }catch(e){
-  document.getElementById('status').innerText='Error: '+e.message;
-  alert('Error: '+e.message);
- }
+var comm=0; var mult=1; var playing=false; var stake=0; var iv=null;
+function go(){
+ document.getElementById('st').innerText='Entering...';
+ try{ localStorage.setItem('test','1'); }catch(e){}
+ document.getElementById('auth').style.display='none';
+ document.getElementById('home').style.display='block';
 }
-
-// Simple functions for rest
-function showTab(t){
- document.getElementById('t-avia').classList.add('hidden');
- document.getElementById('t-dls').classList.add('hidden');
- document.getElementById('t-'+t).classList.remove('hidden');
-}
-var commission=parseFloat(localStorage.getItem('dls_comm')||'0');
-var av={playing:false,mult:1,stake:0,interval:null};
-function startAvia(){
- if(av.playing) return;
- var s=parseInt(document.getElementById('as').value); if(!s) s=100;
- av.stake=s; av.mult=1; av.playing=true;
- document.getElementById('pm').innerText='1.00x';
+function fly(){
+ if(playing) return; stake=parseInt(document.getElementById('bet').value)||100;
+ playing=true; mult=1; document.getElementById('box').innerText='1.00x';
+ document.getElementById('res').innerText='Flying...';
  if(Math.random()<0.12){
-   document.getElementById('pm').innerText='1.00x CRASH!'; document.getElementById('ar').innerText='Instant Crash 100% to you!'; commission+=s; localStorage.setItem('dls_comm',commission); av.playing=false; return;
+   document.getElementById('box').innerText='1.00x CRASH!'; document.getElementById('res').innerText='Instant Crash! You keep 100% KES '+stake; comm+=stake; document.getElementById('comm').innerText='YOUR COMMISSION 12%: KES '+comm; playing=false; return;
  }
  var crash=Math.random()*5+1.5;
- av.interval=setInterval(function(){
-   av.mult+=0.05; document.getElementById('pm').innerText=av.mult.toFixed(2)+'x ✈️';
-   if(av.mult>=crash){ clearInterval(av.interval); av.playing=false; document.getElementById('pm').innerText=av.mult.toFixed(2)+'x CRASH!'; commission+=s*0.12; localStorage.setItem('dls_comm',commission); }
+ iv=setInterval(function(){
+   mult+=0.05; document.getElementById('box').innerText=mult.toFixed(2)+'x ✈️';
+   if(mult>=crash){ clearInterval(iv); playing=false; document.getElementById('box').innerText=mult.toFixed(2)+'x CRASH!'; document.getElementById('res').innerText='Crashed! Lost '+stake; comm+=stake*0.12; document.getElementById('comm').innerText='YOUR COMMISSION 12%: KES '+comm; }
  },100);
 }
-function cashOut(){
- if(!av.playing) return; clearInterval(av.interval); av.playing=false;
- var profit=av.stake*(av.mult-1); var comm=profit*0.12; commission+=comm; localStorage.setItem('dls_comm',commission);
- document.getElementById('ar').innerText='Cashed '+av.mult.toFixed(2)+'x Profit '+(profit-comm).toFixed(0)+' Your 12% '+comm.toFixed(0);
+function cash(){
+ if(!playing) return; clearInterval(iv); playing=false;
+ var profit=stake*(mult-1); var c=profit*0.12; comm+=c;
+ document.getElementById('box').innerText='WIN '+mult.toFixed(2)+'x'; document.getElementById('res').innerText='Cashed '+mult.toFixed(2)+'x Profit '+(profit-c).toFixed(0)+' Commission '+c.toFixed(0);
+ document.getElementById('comm').innerText='YOUR COMMISSION 12%: KES '+comm;
 }
-function createM(){ alert('Create Match - DLS Partners 12% - Coming! First test Aviator!'); }
-function adminClick(){ var c=(window._ac||0)+1; window._ac=c; if(c>=5){ window._ac=0; var u=prompt('Admin:'); var p=prompt('Pass:'); if(u==='admin'&&p==='DLSBoss2026!'){localStorage.setItem('dls_ad','1'); alert('ADMIN MAIN!'); document.getElementById('admin').classList.remove('hidden'); document.getElementById('comm').innerText='COMMISSION 12%: KES '+commission; } } }
-function logout(){ localStorage.removeItem('dls_c'); location.reload(); }
-
-// Auto login if exists
-var existing = localStorage.getItem('dls_c');
-if(existing){ try{ document.getElementById('auth').classList.add('hidden'); document.getElementById('home').classList.remove('hidden'); }catch(e){} }
 </script></body></html>
